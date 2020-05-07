@@ -1,0 +1,16 @@
+[
+	{
+		"modid": "cct",
+		"name": "CompressedCobblestoneTools",
+		"description": "This mod adds some tools that use compressed cobblestone.",
+		"version": "${version}",
+		"mcversion": "${mcversion}",
+		"url": "Nothing",
+		"updateUrl": "Nothing",
+		"authorList": ["ryoryo"],
+		"credits": "Many minecraft modders!",
+		"logoFile": "assets/cct/textures/mod_logo.png",
+		"screenshots": [],
+		"dependencies": ["mod_MinecraftForge", "polishedlib"]
+	}
+]
