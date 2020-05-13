@@ -15,8 +15,8 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 //----------------edited------------------------
 version = "${mc_version}-${mod_version_major}.${mod_version_minor}.${mod_version_patch}"
-group = "com.ryoryo.eraserbomb" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "EraserBomb"
+group = "com.ryoryo.cct" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "CompressedCobblestoneTools"
 
 [compileJava, compileTestJava].each {
 	it.options.encoding = 'UTF-8'
