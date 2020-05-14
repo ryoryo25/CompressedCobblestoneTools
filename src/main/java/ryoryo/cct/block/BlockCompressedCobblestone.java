@@ -8,7 +8,6 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -16,7 +15,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
@@ -25,7 +23,7 @@ import ryoryo.cct.util.EnumCompressed;
 import ryoryo.polishedlib.block.BlockBaseMeta;
 import ryoryo.polishedlib.util.RegistryUtils;
 
-public class BlockCompressedCobblestone extends BlockBaseMeta implements IBlockColor {
+public class BlockCompressedCobblestone extends BlockBaseMeta {
 
 	public static final PropertyInteger COMPRESSED = PropertyInteger.create("compressed", 0, EnumCompressed.X8.getMeta());
 
@@ -62,19 +60,8 @@ public class BlockCompressedCobblestone extends BlockBaseMeta implements IBlockC
 	}
 
 	@Override
-	public int colorMultiplier(IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
-		return getColor(state.getValue(COMPRESSED));
-	}
-
-	public static int getColor(int meta) {
-		float max = (float) EnumCompressed.getLength() - 1;
-		float value = 0.7F * (1.0F - (meta / max)) + 0.1F;
-		return MathHelper.hsvToRGB(0.0F, 0.0F, value);
-	}
-
-	@Override
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-		return new ItemStack(this, 1, state.getValue(COMPRESSED));
+		return new ItemStack(this, 1, getMetaFromState(state));
 	}
 
 	@Override

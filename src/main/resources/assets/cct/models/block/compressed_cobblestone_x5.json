@@ -1,0 +1,6 @@
+{
+	"parent": "cct:block/compressed_cobblestone",
+	"textures": {
+		"all": "cct:blocks/compressed_cobblestone_x5"
+	}
+}

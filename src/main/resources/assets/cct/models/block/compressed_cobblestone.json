@@ -1,8 +1,9 @@
 {
 	"parent": "block/block",
 	"textures": {
-		"all": "minecraft:blocks/cobblestone",
-		"particle": "minecraft:blocks/cobblestone"
+		"particle": "#all",
+		"comment1": "minecraft:blocks/cobblestone",
+		"comment2": "minecraft:blocks/cobblestone"
 	},
 	"elements": [
 		{
