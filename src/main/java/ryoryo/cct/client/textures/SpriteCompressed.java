@@ -13,6 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import ryoryo.cct.CompressedCobblestoneTools;
 import ryoryo.cct.util.References;
+import ryoryo.polishedlib.util.ColorHelper;
 
 public class SpriteCompressed extends TextureAtlasSprite {
 
@@ -61,12 +62,12 @@ public class SpriteCompressed extends TextureAtlasSprite {
 					if(rx <= border || ry < border || (1 - rx) <= border || (1 - ry) <= border)
 						darken *= 0.5F;
 
-					int a = getAlpha(color);
-					int r = MathHelper.clamp(Math.round(getRed(color) * darken), 0, 255);
-					int g = MathHelper.clamp(Math.round(getGreen(color) * darken), 0, 255);
-					int b = MathHelper.clamp(Math.round(getBlue(color) * darken), 0, 255);
+					int a = ColorHelper.getAlpha(color);
+					int r = MathHelper.clamp(Math.round(ColorHelper.getRed(color) * darken), 0, 255);
+					int g = MathHelper.clamp(Math.round(ColorHelper.getGreen(color) * darken), 0, 255);
+					int b = MathHelper.clamp(Math.round(ColorHelper.getBlue(color) * darken), 0, 255);
 
-					newImage.setRGB(px, py, getColor(r, g, b, a));
+					newImage.setRGB(px, py, ColorHelper.getARGB(r, g, b, a));
 				}
 			}
 
@@ -94,25 +95,5 @@ public class SpriteCompressed extends TextureAtlasSprite {
 
 	private static float getDistFromCenter(float x, float y) {
 		return MathHelper.sqrt((x - 0.5F) * (x - 0.5F) + (y - 0.5F) * (y - 0.5F));
-	}
-
-	private static int getAlpha(int color) {
-		return (color & 0xFF000000) >>> 24;
-	}
-
-	private static int getRed(int color) {
-		return (color & 0x00FF0000) >>> 16;
-	}
-
-	private static int getGreen(int color) {
-		return (color & 0x0000FF00) >> 8;
-	}
-
-	private static int getBlue(int color) {
-		return color & 0x000000FF;
-	}
-
-	private static int getColor(int r, int g, int b, int a) {
-		return ((a & 0xFF) << 24) | ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF);
 	}
 }
