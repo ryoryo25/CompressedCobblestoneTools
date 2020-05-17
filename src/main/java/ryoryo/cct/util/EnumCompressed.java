@@ -1,47 +1,54 @@
 package ryoryo.cct.util;
 
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.util.IStringSerializable;
+import ryoryo.cct.item.ModToolMaterial;
 
-public enum EnumCompressed implements IStringSerializable
-{
-	X1("single", 0),
-	X2("double", 1),
-	X3("triple", 2),
-	X4("quadruple", 3),
-	X5("quituple", 4),
-	X6("sextuple", 5),
-	X7("septuple", 6),
-	X8("octuple", 7),;
+public enum EnumCompressed implements IStringSerializable {
+	X1("single", 1, ModToolMaterial.STONE_X1),
+	X2("double", 2, ModToolMaterial.STONE_X2),
+	X3("triple", 3, ModToolMaterial.STONE_X3),
+	X4("quadruple", 4, ModToolMaterial.STONE_X4),
+	X5("quituple", 5, ModToolMaterial.STONE_X5),
+	X6("sextuple", 6, ModToolMaterial.STONE_X6),
+	X7("septuple", 7, ModToolMaterial.STONE_X7),
+	X8("octuple", 8, ModToolMaterial.STONE_X8),;
 
 	private final String name;
-	private final int meta;
+	private final int tier;
+	private final ToolMaterial material;
 	private static final EnumCompressed[] META_LOOKUP = new EnumCompressed[values().length];
 	public static final String[] NAMES = new String[values().length];
 
-	private EnumCompressed(String name, int meta) {
+	private EnumCompressed(String name, int tier, ToolMaterial material) {
 		this.name = name;
-		this.meta = meta;
+		this.tier = tier;
+		this.material = material;
 	}
 
 	public int getMeta() {
-		return this.meta;
+		return this.tier - 1;
 	}
 
 	public int getTier() {
-		return this.meta + 1;
+		return this.tier;
 	}
 
 	public int getCompressed() {
-		return (int) Math.pow(9, getTier());
+		return (int) Math.pow(9, this.tier);
 	}
 
 	public String getOreDictName() {
-		return "compressed" + getTier() + "xCobblestone";
+		return "compressed" + this.tier + "xCobblestone";
 	}
 
 	@Override
 	public String getName() {
 		return this.name;
+	}
+
+	public ToolMaterial getToolMaterial() {
+		return this.material;
 	}
 
 	public static int getLength() {

@@ -25,32 +25,32 @@ import ryoryo.polishedlib.util.RegistryUtils;
 
 public class BlockCompressedCobblestone extends BlockBaseMeta {
 
-	public static final PropertyInteger COMPRESSED = PropertyInteger.create("compressed", 0, EnumCompressed.X8.getMeta());
+	public static final PropertyInteger COMPRESSED = PropertyInteger.create("compressed", EnumCompressed.X1.getTier(), EnumCompressed.X8.getTier());
 
 	public BlockCompressedCobblestone() {
 		super(Material.ROCK, "compressed_cobblestone", CreativeTabs.BUILDING_BLOCKS, SoundType.STONE);
 		this.setHardness(2.0F);
 		this.setResistance(5.0F);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(COMPRESSED, 0));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(COMPRESSED, 1));
 	}
 
 	@Override
 	public boolean canEntityDestroy(IBlockState state, IBlockAccess world, BlockPos pos, Entity entity) {
-		return state.getValue(COMPRESSED) < 6;
+		return state.getValue(COMPRESSED) <= 6;
 	}
 
 	@Override
 	public float getExplosionResistance(World world, BlockPos pos, Entity exploder, Explosion explosion) {
 		int comp = world.getBlockState(pos).getValue(COMPRESSED);
 		float base = 5.0F;
-		return base * (float) Math.pow(1.5F, comp);
+		return base * (float) Math.pow(1.5F, comp - 1);
 	}
 
 	@Override
 	public float getBlockHardness(IBlockState state, World world, BlockPos pos) {
 		int comp = state.getValue(COMPRESSED);
 		float base = 2.0F;
-		return base * (float) Math.pow(2.25F, comp);
+		return base * (float) Math.pow(2.25F, comp - 1);
 	}
 
 	@Override
@@ -71,12 +71,12 @@ public class BlockCompressedCobblestone extends BlockBaseMeta {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(COMPRESSED, meta);
+		return this.getDefaultState().withProperty(COMPRESSED, meta + 1);
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(COMPRESSED);
+		return state.getValue(COMPRESSED) - 1;
 	}
 
 	@Override

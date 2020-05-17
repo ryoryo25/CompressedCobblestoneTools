@@ -1,13 +1,13 @@
 {
 	"variants": {
-		"compressed=0": { "model": "cct:compressed_cobblestone_x1" },
-		"compressed=1": { "model": "cct:compressed_cobblestone_x2" },
-		"compressed=2": { "model": "cct:compressed_cobblestone_x3" },
-		"compressed=3": { "model": "cct:compressed_cobblestone_x4" },
-		"compressed=4": { "model": "cct:compressed_cobblestone_x5" },
-		"compressed=5": { "model": "cct:compressed_cobblestone_x6" },
-		"compressed=6": { "model": "cct:compressed_cobblestone_x7" },
-		"compressed=7": { "model": "cct:compressed_cobblestone_x8" }
+		"compressed=1": { "model": "cct:compressed_cobblestone_x1" },
+		"compressed=2": { "model": "cct:compressed_cobblestone_x2" },
+		"compressed=3": { "model": "cct:compressed_cobblestone_x3" },
+		"compressed=4": { "model": "cct:compressed_cobblestone_x4" },
+		"compressed=5": { "model": "cct:compressed_cobblestone_x5" },
+		"compressed=6": { "model": "cct:compressed_cobblestone_x6" },
+		"compressed=7": { "model": "cct:compressed_cobblestone_x7" },
+		"compressed=8": { "model": "cct:compressed_cobblestone_x8" }
 	},
 	"comment": {
 		"normal": { "model": "cct:compressed_cobblestone" }

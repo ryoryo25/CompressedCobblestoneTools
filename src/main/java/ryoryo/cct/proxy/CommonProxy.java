@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import ryoryo.cct.CompressedCobblestoneTools;
 import ryoryo.cct.block.ModBlocks;
+import ryoryo.cct.item.ModItems;
 import ryoryo.cct.util.EnumCompressed;
 import ryoryo.polishedlib.util.Utils;
 
@@ -13,12 +14,11 @@ public class CommonProxy {
 
 	public void preInit(FMLPreInitializationEvent event) {
 		ModBlocks.init();
+		ModItems.init();
 	}
 
 	public void init(FMLInitializationEvent event) {
-		if(!Utils.isOreDictLoaded(EnumCompressed.X1.getOreDictName())) {
-		}
-		else {
+		if(!Utils.isOreDictLoaded(EnumCompressed.X1.getOreDictName())) {} else {
 			CompressedCobblestoneTools.LOGGER.info("Detect: " + EnumCompressed.X1.getOreDictName() + ". Skip registering recipes.");
 		}
 	}
