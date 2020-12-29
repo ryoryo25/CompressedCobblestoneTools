@@ -33,8 +33,8 @@ public class SpriteCompressed extends TextureAtlasSprite {
 		return true;
 	}
 
-	//Reference:
-	//https://github.com/rwtema/Extra-Utilities-2-Source/blob/master/1.10.2/src/main/java/com/rwtema/extrautils2/textures/SpriteCompressed.java#L30
+	// Reference:
+	// https://github.com/rwtema/Extra-Utilities-2-Source/blob/master/1.10.2/src/main/java/com/rwtema/extrautils2/textures/SpriteCompressed.java#L30
 	@Override
 	public boolean load(IResourceManager manager, ResourceLocation location, Function<ResourceLocation, TextureAtlasSprite> textureGetter) {
 		try {
@@ -46,8 +46,8 @@ public class SpriteCompressed extends TextureAtlasSprite {
 
 			float border = (2.0F + this.n / this.max_n / 2.0F) / 32F;
 
-			for(int px = 0; px < w; px++) {
-				for(int py = 0; py < h; py++) {
+			for(int px = 0; px < w; px ++) {
+				for(int py = 0; py < h; py ++) {
 					float rx = ((float) px / (w - 1));
 					float ry = ((float) (py % w)) / (w - 1);//to adapt animatin texture with %
 					int color = base.getRGB(px, py);
@@ -75,7 +75,7 @@ public class SpriteCompressed extends TextureAtlasSprite {
 			newImage.getRGB(0, 0, w, h, raw, 0, w);
 
 			int[][] aint = new int[1 + mipmap][];
-			for(int i = 0; i < aint.length; i++) {
+			for(int i = 0; i < aint.length; i ++) {
 				aint[i] = raw;
 			}
 
