@@ -31,7 +31,7 @@ public class BlockCompressedCobblestone extends BlockBaseMeta {
 		super(Material.ROCK, "compressed_cobblestone", CreativeTabs.BUILDING_BLOCKS, SoundType.STONE);
 		this.setHardness(2.0F);
 		this.setResistance(5.0F);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(COMPRESSED, 1));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(COMPRESSED, EnumCompressed.X1.getTier()));
 	}
 
 	@Override
