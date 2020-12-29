@@ -1,7 +1,12 @@
 package ryoryo.cct.util;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+import ryoryo.cct.block.ModBlocks;
+import ryoryo.cct.item.ModItems;
 import ryoryo.cct.item.ModToolMaterial;
 
 public enum EnumCompressed implements IStringSerializable {
@@ -49,6 +54,42 @@ public enum EnumCompressed implements IStringSerializable {
 
 	public ToolMaterial getToolMaterial() {
 		return this.material;
+	}
+
+	public ItemStack getNextTierBlock(int count) {
+		if(this.tier == 8) {
+			return ItemStack.EMPTY;
+		}
+
+		return new ItemStack(ModBlocks.BLOCK_COMPRESSED_COBBLESTONE, count, this.getMeta() + 1);
+	}
+
+	public ItemStack getPrevTierBlock(int count) {
+		if(this.tier == 1) {
+			return new ItemStack(Blocks.COBBLESTONE, count);
+		}
+
+		return new ItemStack(ModBlocks.BLOCK_COMPRESSED_COBBLESTONE, count, this.getMeta() - 1);
+	}
+
+	public Item getShovel() {
+		return ModItems.SHOVELS[this.getMeta()];
+	}
+
+	public Item getPickaxe() {
+		return ModItems.PICKAXES[this.getMeta()];
+	}
+
+	public Item getAxe() {
+		return ModItems.AXES[this.getMeta()];
+	}
+
+	public Item getSword() {
+		return ModItems.SWORDS[this.getMeta()];
+	}
+
+	public Item getPaxel() {
+		return ModItems.PAXELS[this.getMeta()];
 	}
 
 	public static int getLength() {
