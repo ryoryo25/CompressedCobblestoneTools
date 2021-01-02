@@ -16,14 +16,15 @@ import ryoryo.cct.util.References;
 
 public class TextureHandler {
 
-	@SubscribeEvent(priority = EventPriority.LOW)
+	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void loadTexture(TextureStitchEvent.Pre event) {
 		TextureMap map = event.getMap();
 
 		if(!map.getBasePath().equals("textures"))
 			return;
 
-		CompressedCobblestoneTools.LOGGER.info("Stitching textures for " + References.MOD_NAME);
+		CompressedCobblestoneTools.LOGGER.info("Start stitching textures");
+		long start = System.nanoTime();
 		ProgressBar stitchBar = ProgressManager.push("CCT: stitching textures", 8 + 1); // tier 1 - 8 and paxel
 
 		float max_n = (float) Math.sqrt(EnumCompressed.getLength() * 8) + 0.5F;
@@ -44,5 +45,7 @@ public class TextureHandler {
 		map.setTextureEntry(new SimpleSprite(new ResourceLocation(References.MOD_ID, "items/stone_paxel")));
 
 		ProgressManager.pop(stitchBar);
+		long time = System.nanoTime() - start;
+		CompressedCobblestoneTools.LOGGER.info(String.format("Finish stitching textures : took %1.2f ms", time / 1000000D));
 	}
 }
