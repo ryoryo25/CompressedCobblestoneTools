@@ -17,6 +17,14 @@ import ryoryo.polishedlib.util.ColorHelper;
 
 public class SpriteCompressedTools extends TextureAtlasSprite {
 
+	// { x, y }
+	private static final int[][] EDGE_SEARCH_OFFSET = {
+			{ -1, 0 }, // left
+			{ 1, 0 }, // right
+			{ 0, -1 }, // up
+			{ 0, 1 } // down
+	};
+
 	private int n;
 	private float max_n;
 	private ResourceLocation baseLocation;
@@ -64,6 +72,7 @@ public class SpriteCompressedTools extends TextureAtlasSprite {
 			BufferedImage base = ImageIO.read(manager.getResource(this.baseLocation).getInputStream());
 			int w = base.getWidth();
 			int h = base.getHeight();
+
 			BufferedImage newImage = ImageTypeSpecifier.createFromBufferedImageType(BufferedImage.TYPE_INT_ARGB).createBufferedImage(w, h);
 
 			float border = (2.0F + this.n / this.max_n / 2.0F) / 32F;
@@ -71,17 +80,18 @@ public class SpriteCompressedTools extends TextureAtlasSprite {
 			for(int px = 0; px < w; px ++) {
 				for(int py = 0; py < h; py ++) {
 					float rx = ((float) px / (w - 1));
-					float ry = ((float) (py % w)) / (w - 1);//to adapt animatin texture with %
+					float ry = ((float) (py % w)) / (w - 1); //to adapt animatin texture with %
 					int color = base.getRGB(px, py);
 					float dist = getDistFromCenter(rx, ry);
 
 					float darken = 1.0F - this.n / this.max_n + (0.35F - dist);
+					darken *= 0.8F;
 					if(darken > 1)
 						darken = 1;
 					if(darken < 0)
 						darken = 0;
 
-					if(isEdge(base, rx, ry, w, h) || rx <= border || ry < border || (1 - rx) <= border || (1 - ry) <= border)
+					if(isEdge(base, px, py % w, w, h) || rx <= border || ry < border || (1 - rx) <= border || (1 - ry) <= border)
 						darken *= 0.5F;
 
 					int a = ColorHelper.getAlpha(color);
@@ -114,18 +124,17 @@ public class SpriteCompressedTools extends TextureAtlasSprite {
 		return false;
 	}
 
-	private static boolean isEdge(BufferedImage base, float x, float y, int w, int h) {
-		for(int px = (int) x - 1; px < x + 1; px ++) {
-			for(int py = (int) y - 1; py < y + 1; py ++) {
-				if(px < 0 || px >= w || py < 0 || py >= h)
-					continue;
+	private static boolean isEdge(BufferedImage base, int x, int y, int w, int h) {
+		for(int[] offset : EDGE_SEARCH_OFFSET) {
+			int px = x + offset[0];
+			int py = y + offset[1];
 
-				int alpha = ColorHelper.getAlpha(base.getRGB(px, py));
-				//				CompressedCobblestoneTools.LOGGER.info(alpha);
-				if(alpha == 0xFF) {
-					CompressedCobblestoneTools.LOGGER.info("It is edge!");
-					return true;
-				}
+			if(px < 0 || px >= w || py < 0 || py >= h)
+				continue;
+
+			int alpha = ColorHelper.getAlpha(base.getRGB(px, py));
+			if(alpha == 0x00) {
+				return true;
 			}
 		}
 
