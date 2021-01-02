@@ -19,13 +19,13 @@ public class SpriteCompressed extends TextureAtlasSprite {
 
 	private int n;
 	private float max_n;
-	private ResourceLocation location;
+	private ResourceLocation baseLocation;
 
 	public SpriteCompressed(String texBase, int n, float max_n) {
 		super(References.MOD_ID + ":blocks/compressed_" + texBase + "_x" + (n + 1));
 		this.n = n;
 		this.max_n = max_n;
-		this.location = new ResourceLocation("minecraft", "textures/blocks/" + texBase + ".png");
+		this.baseLocation = new ResourceLocation("minecraft", "textures/blocks/" + texBase + ".png");
 	}
 
 	@Override
@@ -37,9 +37,27 @@ public class SpriteCompressed extends TextureAtlasSprite {
 	// https://github.com/rwtema/Extra-Utilities-2-Source/blob/master/1.10.2/src/main/java/com/rwtema/extrautils2/textures/SpriteCompressed.java#L30
 	@Override
 	public boolean load(IResourceManager manager, ResourceLocation location, Function<ResourceLocation, TextureAtlasSprite> textureGetter) {
+		int mipmap = Minecraft.getMinecraft().gameSettings.mipmapLevels;
+
+		// handle for Resource Packs
 		try {
-			int mipmap = Minecraft.getMinecraft().gameSettings.mipmapLevels;
-			BufferedImage base = ImageIO.read(manager.getResource(this.location).getInputStream());
+			BufferedImage newImage = ImageIO.read(manager.getResource(location).getInputStream());
+			int[][] pixels = new int[mipmap + 1][];
+			pixels[0] = new int[newImage.getWidth() * newImage.getHeight()];
+			newImage.getRGB(0, 0, newImage.getWidth(), newImage.getHeight(), pixels[0], 0, newImage.getWidth());
+			this.setIconWidth(newImage.getWidth());
+			this.setIconHeight(newImage.getHeight());
+			this.clearFramesTextureData();
+			this.framesTextureData.add(pixels);
+
+			CompressedCobblestoneTools.LOGGER.info("Found image for {}, so skip generating image", location);
+			return false;
+		} catch(Exception e) {
+			// NO-OP
+		}
+
+		try {
+			BufferedImage base = ImageIO.read(manager.getResource(this.baseLocation).getInputStream());
 			int w = base.getWidth();
 			int h = base.getHeight();
 			BufferedImage newImage = ImageTypeSpecifier.createFromBufferedImageType(BufferedImage.TYPE_INT_ARGB).createBufferedImage(w, h);
@@ -63,9 +81,9 @@ public class SpriteCompressed extends TextureAtlasSprite {
 						darken *= 0.5F;
 
 					int a = ColorHelper.getAlpha(color);
-					int r = MathHelper.clamp(Math.round(ColorHelper.getRed(color) * darken), 0, 255);
-					int g = MathHelper.clamp(Math.round(ColorHelper.getGreen(color) * darken), 0, 255);
-					int b = MathHelper.clamp(Math.round(ColorHelper.getBlue(color) * darken), 0, 255);
+					int r = ColorHelper.clamp(Math.round(ColorHelper.getRed(color) * darken));
+					int g = ColorHelper.clamp(Math.round(ColorHelper.getGreen(color) * darken));
+					int b = ColorHelper.clamp(Math.round(ColorHelper.getBlue(color) * darken));
 
 					newImage.setRGB(px, py, ColorHelper.getARGB(r, g, b, a));
 				}
@@ -74,18 +92,17 @@ public class SpriteCompressed extends TextureAtlasSprite {
 			int[] raw = new int[w * h];
 			newImage.getRGB(0, 0, w, h, raw, 0, w);
 
-			int[][] aint = new int[1 + mipmap][];
-			for(int i = 0; i < aint.length; i ++) {
-				aint[i] = raw;
+			int[][] pixels = new int[1 + mipmap][];
+			for(int i = 0; i < pixels.length; i ++) {
+				pixels[i] = raw;
 			}
 
 			this.setIconWidth(w);
 			this.setIconHeight(h);
 			this.clearFramesTextureData();
-			this.framesTextureData.add(aint);
-		}
-		catch(Throwable e) {
-			CompressedCobblestoneTools.LOGGER.error("Error: unable to load " + this.location.toString());
+			this.framesTextureData.add(pixels);
+		} catch(Exception e) {
+			CompressedCobblestoneTools.LOGGER.error("Error: unable to load {}", this.baseLocation);
 
 			return true;
 		}
