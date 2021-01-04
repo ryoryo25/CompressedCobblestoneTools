@@ -24,24 +24,29 @@ public class CommonProxy {
 	}
 
 	public void init(FMLInitializationEvent event) {
-		if(!Utils.isOreDictLoaded(EnumCompressed.X1.getOreDictName())) {
-			for(int i = 0; i < 8; i ++) {
-				// compress recipe
+		for (int i = 0; i < EnumCompressed.getLength(); i ++) {
+			if (!Utils.isOreDictLoaded(EnumCompressed.byMeta(i).getOreDictName())) {
+				// register ore dictionary
+				OreDictionary.registerOre(EnumCompressed.byMeta(i).getOreDictName(), new ItemStack(ModBlocks.BLOCK_COMPRESSED_COBBLESTONE, 1, i));
+
+				// compress recipe using ore dictionary
 				addRecipe("compressed_cobblestone_x" + (i + 1),
 						new ItemStack(ModBlocks.BLOCK_COMPRESSED_COBBLESTONE, 1, i),
 						"CCC", "CCC", "CCC",
-						'C', EnumCompressed.byMeta(i).getPrevTierBlock(1));
+						'C', EnumCompressed.byMeta(i).getPrevTierOreDict());
 
-				// reverse recipe
+				// reverse recipe using ore dictionary
 				addShapelessRecipe("reverse_compressed_cobblestone_x" + (i + 1),
 						EnumCompressed.byMeta(i).getPrevTierBlock(9),
-						new ItemStack(ModBlocks.BLOCK_COMPRESSED_COBBLESTONE, 1, i));
-
-				// register ore dictionary
-				OreDictionary.registerOre(EnumCompressed.byMeta(i).getOreDictName(), new ItemStack(ModBlocks.BLOCK_COMPRESSED_COBBLESTONE, 1, i));
+						EnumCompressed.byMeta(i).getOreDictName());
+			} else {
+				CompressedCobblestoneTools.LOGGER.info("Detect: " + EnumCompressed.byMeta(i).getOreDictName() + ". Skip registering recipes.");
 			}
-		} else {
-			CompressedCobblestoneTools.LOGGER.info("Detect: " + EnumCompressed.X1.getOreDictName() + ". Skip registering recipes.");
+
+			// compress tools
+			addRecipeTools(i);
+			// compress tools with merging durabilities
+			addRecipeCompressTools(i);
 		}
 
 		// stone paxel
@@ -51,11 +56,6 @@ public class CommonProxy {
 				'p', Items.STONE_PICKAXE,
 				'a', Items.STONE_AXE,
 				'S', Items.STICK);
-
-		for(int i = 0; i < 8; i ++) {
-			addRecipeTools(i);
-			addRecipeCompressTools(i);
-		}
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {}
@@ -73,14 +73,14 @@ public class CommonProxy {
 	private void addRecipeTools(int meta) {
 		// axe, pickaxe, shovel
 		CompressedCobblestoneTools.REGISTER.addRecipeTools("compressed_x" + (meta + 1),
-				new ItemStack(ModBlocks.BLOCK_COMPRESSED_COBBLESTONE, 1, meta),
+				EnumCompressed.byMeta(meta).getOreDictName(),
 				new ItemStack(EnumCompressed.byMeta(meta).getAxe(), 1),
 				new ItemStack(EnumCompressed.byMeta(meta).getPickaxe(), 1),
 				new ItemStack(EnumCompressed.byMeta(meta).getShovel(), 1));
 		// sword
 		CompressedCobblestoneTools.REGISTER.addRecipeSword("compressed_x" + (meta + 1),
 				new ItemStack(EnumCompressed.byMeta(meta).getSword(), 1),
-				new ItemStack(ModBlocks.BLOCK_COMPRESSED_COBBLESTONE, 1, meta));
+				EnumCompressed.byMeta(meta).getOreDictName());
 		// paxel
 		addRecipe("paxel_compressed_x" + (meta + 1),
 				new ItemStack(EnumCompressed.byMeta(meta).getPaxel(), 1),
