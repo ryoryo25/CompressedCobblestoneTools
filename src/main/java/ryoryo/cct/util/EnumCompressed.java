@@ -48,6 +48,14 @@ public enum EnumCompressed implements IStringSerializable {
 		return "compressed" + this.tier + "xCobblestone";
 	}
 
+	public String getPrevTierOreDict() {
+		if (this.tier == 1) {
+			return "cobblestone";
+		}
+
+		return EnumCompressed.byMeta(getMeta() - 1).getOreDictName();
+	}
+
 	@Override
 	public String getName() {
 		return this.name;
@@ -58,7 +66,7 @@ public enum EnumCompressed implements IStringSerializable {
 	}
 
 	public ItemStack getNextTierBlock(int count) {
-		if(this.tier == 8) {
+		if (this.tier == 8) {
 			return ItemStack.EMPTY;
 		}
 
@@ -66,7 +74,7 @@ public enum EnumCompressed implements IStringSerializable {
 	}
 
 	public ItemStack getPrevTierBlock(int count) {
-		if(this.tier == 1) {
+		if (this.tier == 1) {
 			return new ItemStack(Blocks.COBBLESTONE, count);
 		}
 
@@ -78,7 +86,7 @@ public enum EnumCompressed implements IStringSerializable {
 	}
 
 	public Item getPrevTierShovel(int count) {
-		if(this.tier == 1) {
+		if (this.tier == 1) {
 			return Items.STONE_SHOVEL;
 		}
 
@@ -90,7 +98,7 @@ public enum EnumCompressed implements IStringSerializable {
 	}
 
 	public Item getPrevTierPickaxe(int count) {
-		if(this.tier == 1) {
+		if (this.tier == 1) {
 			return Items.STONE_PICKAXE;
 		}
 
@@ -102,7 +110,7 @@ public enum EnumCompressed implements IStringSerializable {
 	}
 
 	public Item getPrevTierAxe(int count) {
-		if(this.tier == 1) {
+		if (this.tier == 1) {
 			return Items.STONE_AXE;
 		}
 
@@ -114,7 +122,7 @@ public enum EnumCompressed implements IStringSerializable {
 	}
 
 	public Item getPrevTierSword(int count) {
-		if(this.tier == 1) {
+		if (this.tier == 1) {
 			return Items.STONE_SWORD;
 		}
 
@@ -126,7 +134,7 @@ public enum EnumCompressed implements IStringSerializable {
 	}
 
 	public Item getPrevTierPaxel(int count) {
-		if(this.tier == 1) {
+		if (this.tier == 1) {
 			return ModItems.ITEM_STONE_PAXEL;
 		}
 
@@ -138,7 +146,7 @@ public enum EnumCompressed implements IStringSerializable {
 	}
 
 	public static EnumCompressed byMeta(int meta) {
-		if(meta < 0 || meta >= META_LOOKUP.length) {
+		if (meta < 0 || meta >= META_LOOKUP.length) {
 			meta = 0;
 		}
 
@@ -146,7 +154,7 @@ public enum EnumCompressed implements IStringSerializable {
 	}
 
 	static {
-		for(EnumCompressed compressed : values()) {
+		for (EnumCompressed compressed : values()) {
 			META_LOOKUP[compressed.getMeta()] = compressed;
 			NAMES[compressed.getMeta()] = "x" + compressed.getTier();
 		}
