@@ -8,11 +8,11 @@ import net.minecraftforge.fml.common.ProgressManager.ProgressBar;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import ryoryo.cct.CompressedCobblestoneTools;
-import ryoryo.cct.client.textures.SimpleSprite;
-import ryoryo.cct.client.textures.SpriteCompressed;
-import ryoryo.cct.client.textures.SpriteCompressedTools;
+import ryoryo.cct.client.texture.SpriteCompressed;
+import ryoryo.cct.client.texture.SpriteCompressedTools;
 import ryoryo.cct.util.EnumCompressed;
 import ryoryo.cct.util.References;
+import ryoryo.polishedlib.client.texture.SimpleSprite;
 
 public class TextureHandler {
 
