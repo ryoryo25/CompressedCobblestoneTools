@@ -1,6 +1,7 @@
 package ryoryo.cct.util;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
@@ -76,20 +77,60 @@ public enum EnumCompressed implements IStringSerializable {
 		return ModItems.SHOVELS[this.getMeta()];
 	}
 
+	public Item getPrevTierShovel(int count) {
+		if(this.tier == 1) {
+			return Items.STONE_SHOVEL;
+		}
+
+		return ModItems.SHOVELS[this.getMeta() - 1];
+	}
+
 	public Item getPickaxe() {
 		return ModItems.PICKAXES[this.getMeta()];
+	}
+
+	public Item getPrevTierPickaxe(int count) {
+		if(this.tier == 1) {
+			return Items.STONE_PICKAXE;
+		}
+
+		return ModItems.PICKAXES[this.getMeta() - 1];
 	}
 
 	public Item getAxe() {
 		return ModItems.AXES[this.getMeta()];
 	}
 
+	public Item getPrevTierAxe(int count) {
+		if(this.tier == 1) {
+			return Items.STONE_AXE;
+		}
+
+		return ModItems.AXES[this.getMeta() - 1];
+	}
+
 	public Item getSword() {
 		return ModItems.SWORDS[this.getMeta()];
 	}
 
+	public Item getPrevTierSword(int count) {
+		if(this.tier == 1) {
+			return Items.STONE_SWORD;
+		}
+
+		return ModItems.SWORDS[this.getMeta() - 1];
+	}
+
 	public Item getPaxel() {
 		return ModItems.PAXELS[this.getMeta()];
+	}
+
+	public Item getPrevTierPaxel(int count) {
+		if(this.tier == 1) {
+			return ModItems.ITEM_STONE_PAXEL;
+		}
+
+		return ModItems.PAXELS[this.getMeta() - 1];
 	}
 
 	public static int getLength() {
