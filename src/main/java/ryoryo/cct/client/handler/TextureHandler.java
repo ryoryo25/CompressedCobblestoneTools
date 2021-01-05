@@ -14,7 +14,6 @@ import ryoryo.cct.client.texture.SpriteCompressed;
 import ryoryo.cct.client.texture.SpriteCompressedTools;
 import ryoryo.cct.util.EnumCompressed;
 import ryoryo.cct.util.References;
-import ryoryo.polishedlib.client.texture.SimpleSprite;
 
 public class TextureHandler {
 
@@ -22,7 +21,7 @@ public class TextureHandler {
 	public void loadTexture(TextureStitchEvent.Pre event) {
 		TextureMap map = event.getMap();
 
-		if(!map.getBasePath().equals("textures"))
+		if (!map.getBasePath().equals("textures"))
 			return;
 
 		CompressedCobblestoneTools.LOGGER.info("Start stitching textures");
@@ -31,7 +30,7 @@ public class TextureHandler {
 
 		float max_n = (float) Math.sqrt(EnumCompressed.getLength() * 8) + 0.5F;
 
-		for(int i = 0; i < EnumCompressed.getLength(); i ++) {
+		for (int i = 0; i < EnumCompressed.getLength(); i ++) {
 			stitchBar.step("Compressed tier " + (i + 1));
 
 			map.setTextureEntry(new SpriteCompressed("cobblestone", i, max_n));
@@ -44,7 +43,7 @@ public class TextureHandler {
 
 		stitchBar.step("Stone Paxel");
 		// any JSON model files don't load this texture, so this texture isn't registered in the atlas
-		map.setTextureEntry(new SimpleSprite(new ResourceLocation(References.MOD_ID, "items/stone_paxel")));
+		map.registerSprite(new ResourceLocation(References.MOD_ID, "items/stone_paxel"));
 
 		ProgressManager.pop(stitchBar);
 		stopwatch.stop();
