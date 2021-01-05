@@ -61,4 +61,15 @@ public class ModToolMaterial {
 			ToolMaterial.STONE.getEfficiency(),
 			ToolMaterial.STONE.getAttackDamage(),
 			ToolMaterial.STONE.getEnchantability());
+
+	public static final ToolMaterial[] COMPRESSED_MATERIAL = {
+			STONE_X1,
+			STONE_X2,
+			STONE_X3,
+			STONE_X4,
+			STONE_X5,
+			STONE_X6,
+			STONE_X7,
+			STONE_X8
+	};
 }
