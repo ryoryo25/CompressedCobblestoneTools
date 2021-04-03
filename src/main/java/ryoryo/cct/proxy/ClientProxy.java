@@ -5,7 +5,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import ryoryo.cct.client.handler.TextureHandler;
 import ryoryo.cct.client.model.loader.BlockModelLoader;
 import ryoryo.cct.client.model.loader.ToolModelLoader;
-import ryoryo.polishedlib.client.model.ModelRegisterHandler;
+import ryoryo.polishedlib.client.handlers.CustomModelRegisterHandler;
 
 public class ClientProxy extends CommonProxy {
 
@@ -16,7 +16,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new TextureHandler());
 
 		// register loaders
-		ModelRegisterHandler.registerModelLoader(new BlockModelLoader());
-		ModelRegisterHandler.registerModelLoader(new ToolModelLoader());
+		CustomModelRegisterHandler.registerModelLoader(new BlockModelLoader());
+		CustomModelRegisterHandler.registerModelLoader(new ToolModelLoader());
 	}
 }
