@@ -3,20 +3,17 @@ package ryoryo.cct.item;
 import java.util.List;
 
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import ryoryo.cct.util.EnumCompressed;
+import ryoryo.polishedlib.item.ItemBaseShovel;
 
-public class ItemModShovel extends ItemSpade {
+public class ItemModShovel extends ItemBaseShovel {
 
 	private final EnumCompressed compressed;
 
 	public ItemModShovel(EnumCompressed compressed) {
-		super(compressed.getToolMaterial());
-		this.setUnlocalizedName("shovel_compressed_x" + compressed.getTier());
-		this.setCreativeTab(CreativeTabs.TOOLS);
+		super("compressed_stone_shovel_x" + compressed.getTier(), compressed.getToolMaterial());
 		this.compressed = compressed;
 	}
 

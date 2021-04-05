@@ -1,15 +1,13 @@
 package ryoryo.cct.item;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
-import ryoryo.cct.CompressedCobblestoneTools;
 import ryoryo.cct.util.EnumCompressed;
 import ryoryo.polishedlib.item.ItemBasePaxel;
 
 public class ModItems {
 
-	public static final Item ITEM_STONE_PAXEL = new ItemBasePaxel(ToolMaterial.STONE).setUnlocalizedName("stone_paxel").setCreativeTab(CreativeTabs.TOOLS);
+	public static final Item ITEM_STONE_PAXEL = new ItemBasePaxel("stone_paxel", ToolMaterial.STONE);
 
 	public static final Item ITEM_SHOVEL_X1 = new ItemModShovel(EnumCompressed.X1);
 	public static final Item ITEM_SHOVEL_X2 = new ItemModShovel(EnumCompressed.X2);
@@ -62,14 +60,8 @@ public class ModItems {
 	public static final Item[] PAXELS = { ITEM_PAXEL_X1, ITEM_PAXEL_X2, ITEM_PAXEL_X3, ITEM_PAXEL_X4, ITEM_PAXEL_X5, ITEM_PAXEL_X6, ITEM_PAXEL_X7, ITEM_PAXEL_X8 };
 
 	public static void init() {
-		CompressedCobblestoneTools.REGISTER.registerItem(ITEM_STONE_PAXEL, "stone_paxel");
-
-		for(int i = 0; i < EnumCompressed.getLength(); i ++) {
-			CompressedCobblestoneTools.REGISTER.registerItem(SHOVELS[i], "compressed_stone_shovel_x" + (i + 1));
-			CompressedCobblestoneTools.REGISTER.registerItem(PICKAXES[i], "compressed_stone_pickaxe_x" + (i + 1));
-			CompressedCobblestoneTools.REGISTER.registerItem(AXES[i], "compressed_stone_axe_x" + (i + 1));
-			CompressedCobblestoneTools.REGISTER.registerItem(SWORDS[i], "compressed_stone_sword_x" + (i + 1));
-			CompressedCobblestoneTools.REGISTER.registerItem(PAXELS[i], "compressed_stone_paxel_x" + (i + 1));
-		}
+		// NO-OP
+		// To create instances of items in PreInit
+		// Call this in PreInit
 	}
 }

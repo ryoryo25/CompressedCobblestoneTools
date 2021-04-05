@@ -3,20 +3,17 @@ package ryoryo.cct.item;
 import java.util.List;
 
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import ryoryo.cct.util.EnumCompressed;
+import ryoryo.polishedlib.item.ItemBaseAxe;
 
-public class ItemModAxe extends ItemAxe {
+public class ItemModAxe extends ItemBaseAxe {
 
 	private final EnumCompressed compressed;
 
 	protected ItemModAxe(EnumCompressed compressed) {
-		super(compressed.getToolMaterial(), 8F, -3.2F);
-		this.setUnlocalizedName("axe_compressed_x" + compressed.getTier());
-		this.setCreativeTab(CreativeTabs.TOOLS);
+		super("compressed_stone_axe_x" + compressed.getTier(), compressed.getToolMaterial());
 		this.compressed = compressed;
 	}
 

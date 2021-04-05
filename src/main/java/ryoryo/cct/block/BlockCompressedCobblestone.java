@@ -12,6 +12,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -19,16 +20,20 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import ryoryo.cct.util.EnumCompressed;
 import ryoryo.polishedlib.block.BlockBaseMeta;
+import ryoryo.polishedlib.item.ItemBlockMeta;
 import ryoryo.polishedlib.util.RegistryUtils;
+import ryoryo.polishedlib.util.handlers.ModelHandler;
 
 public class BlockCompressedCobblestone extends BlockBaseMeta {
 
 	public static final PropertyInteger COMPRESSED = PropertyInteger.create("compressed", EnumCompressed.X1.getTier(), EnumCompressed.X8.getTier());
 
 	public BlockCompressedCobblestone() {
-		super(Material.ROCK, "compressed_cobblestone", CreativeTabs.BUILDING_BLOCKS, SoundType.STONE);
+		super("compressed_cobblestone", Material.ROCK, CreativeTabs.BUILDING_BLOCKS, SoundType.STONE);
 		this.setHardness(2.0F);
 		this.setResistance(5.0F);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(COMPRESSED, EnumCompressed.X1.getTier()));
@@ -87,5 +92,16 @@ public class BlockCompressedCobblestone extends BlockBaseMeta {
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
 		RegistryUtils.registerSubBlocks(this, EnumCompressed.getLength(), tab, list);
+	}
+
+	@Override
+	public ItemBlock createItemBlock() {
+		return new ItemBlockMeta(this, EnumCompressed.NAMES);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerModels() {
+		ModelHandler.registerBlockModel(this, createItemBlock(), EnumCompressed.NAMES);
 	}
 }

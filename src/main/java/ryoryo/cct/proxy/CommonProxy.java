@@ -15,6 +15,7 @@ import ryoryo.cct.crafting.RecipeCompressTools;
 import ryoryo.cct.item.ModItems;
 import ryoryo.cct.util.EnumCompressed;
 import ryoryo.polishedlib.util.Utils;
+import ryoryo.polishedlib.util.handlers.RecipeHandler;
 
 public class CommonProxy {
 
@@ -63,22 +64,22 @@ public class CommonProxy {
 	public void loadComplete(FMLLoadCompleteEvent event) {}
 
 	private void addRecipe(String name, @Nonnull ItemStack output, Object... params) {
-		CompressedCobblestoneTools.REGISTER.addRecipe(name, output, params);
+		RecipeHandler.addRecipe(name, output, params);
 	}
 
 	private void addShapelessRecipe(String name, @Nonnull ItemStack output, Object... params) {
-		CompressedCobblestoneTools.REGISTER.addShapelessRecipe(name, output, params);
+		RecipeHandler.addShapelessRecipe(name, output, params);
 	}
 
 	private void addRecipeTools(int meta) {
 		// axe, pickaxe, shovel
-		CompressedCobblestoneTools.REGISTER.addRecipeTools("compressed_x" + (meta + 1),
+		RecipeHandler.addRecipeTools("compressed_x" + (meta + 1),
 				EnumCompressed.byMeta(meta).getOreDictName(),
 				new ItemStack(EnumCompressed.byMeta(meta).getAxe(), 1),
 				new ItemStack(EnumCompressed.byMeta(meta).getPickaxe(), 1),
 				new ItemStack(EnumCompressed.byMeta(meta).getShovel(), 1));
 		// sword
-		CompressedCobblestoneTools.REGISTER.addRecipeSword("compressed_x" + (meta + 1),
+		RecipeHandler.addRecipeSword("compressed_x" + (meta + 1),
 				new ItemStack(EnumCompressed.byMeta(meta).getSword(), 1),
 				EnumCompressed.byMeta(meta).getOreDictName());
 		// paxel

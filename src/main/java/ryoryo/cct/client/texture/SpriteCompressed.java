@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import ryoryo.cct.CompressedCobblestoneTools;
 import ryoryo.cct.util.References;
-import ryoryo.polishedlib.util.ColorHelper;
+import ryoryo.polishedlib.util.helpers.ColorHelper;
 
 public class SpriteCompressed extends TextureAtlasSprite {
 
