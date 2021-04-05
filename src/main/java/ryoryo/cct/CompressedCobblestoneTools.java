@@ -13,7 +13,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import ryoryo.cct.proxy.CommonProxy;
 import ryoryo.cct.util.References;
-import ryoryo.polishedlib.util.RegistryUtils;
 
 @Mod(modid = References.MOD_ID, name = References.MOD_NAME, version = References.MOD_VERSION, dependencies = References.MOD_DEPENDENCIES, acceptedMinecraftVersions = References.MOD_ACCEPTED_MC_VERSIONS, useMetadata = true, guiFactory = References.MOD_GUI_FACTORY)
 public class CompressedCobblestoneTools {
@@ -24,7 +23,6 @@ public class CompressedCobblestoneTools {
 	public static CommonProxy proxy;
 
 	public static final Logger LOGGER = LogManager.getLogger(References.MOD_ID);
-	public static final RegistryUtils REGISTER = new RegistryUtils(References.MOD_ID);
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
