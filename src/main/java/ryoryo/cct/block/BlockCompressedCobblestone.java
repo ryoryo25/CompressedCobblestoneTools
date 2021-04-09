@@ -20,8 +20,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import ryoryo.cct.util.EnumCompressed;
 import ryoryo.polishedlib.block.BlockBaseMeta;
 import ryoryo.polishedlib.item.ItemBlockMeta;
@@ -65,43 +63,42 @@ public class BlockCompressedCobblestone extends BlockBaseMeta {
 	}
 
 	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+	protected ItemStack getPickBlockImpl(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 		return new ItemStack(this, 1, getMetaFromState(state));
 	}
 
 	@Override
-	public int damageDropped(IBlockState state) {
+	protected int damageDroppedImpl(IBlockState state) {
 		return getMetaFromState(state);
 	}
 
 	@Override
-	public IBlockState getStateFromMeta(int meta) {
+	protected IBlockState getStateFromMetaImpl(int meta) {
 		return this.getDefaultState().withProperty(COMPRESSED, meta + 1);
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
+	protected int getMetaFromStateImpl(IBlockState state) {
 		return state.getValue(COMPRESSED) - 1;
 	}
 
 	@Override
-	protected BlockStateContainer createBlockState() {
+	protected BlockStateContainer createBlockStateImpl() {
 		return new BlockStateContainer(this, new IProperty[] { COMPRESSED });
 	}
 
 	@Override
-	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
+	protected void getSubBlocksImpl(CreativeTabs tab, NonNullList<ItemStack> list) {
 		RegistryUtils.registerSubBlocks(this, EnumCompressed.getLength(), tab, list);
 	}
 
 	@Override
-	public ItemBlock createItemBlock() {
+	protected ItemBlock createItemBlockImpl() {
 		return new ItemBlockMeta(this, EnumCompressed.NAMES);
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerModels() {
+	protected void registerModelsImpl() {
 		ModelHandler.registerBlockModel(this, createItemBlock(), EnumCompressed.NAMES);
 	}
 }
